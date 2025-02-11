@@ -1,11 +1,8 @@
+//This program simulates a grade book.
+
 #include <iostream>
 #include <fstream>
 using namespace std;
-
-int read();
-double averages();
-int letter();
-void report();
 
 string names[50];
 int scores[50][35];
@@ -16,6 +13,11 @@ int count2 = 0;
 int new_count = 0;
 double average = 0;
 int the_final_count = 0;
+
+int read();
+double averages();
+int letter();
+void report();
 
 const int num_scores = read();
 
