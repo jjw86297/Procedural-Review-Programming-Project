@@ -3,7 +3,7 @@
 using namespace std;
 
 int read();
-int averages();
+double averages();
 int letter();
 void report();
 
@@ -11,10 +11,10 @@ string names[50];
 int scores[50][35];
 double averages_array[50];
 
-int count1 = 0;
+int count = 0;
 int count2 = 0;
-int new_count1 = 0;
-int average = 0;
+int new_count = 0;
+double average = 0;
 int the_final_count = 0;
 
 const int num_scores = read();
@@ -23,7 +23,7 @@ int main()
 {
     int average_count = 0;
 
-    while (average_count < count1)
+    while (average_count < count)
     {
         averages_array[average_count] = averages();
         average_count++;
@@ -35,40 +35,42 @@ int main()
 
 int read()
 {
-    ifstream inputFile("C:\\Users\\jacob\\Downloads\\StudentGrade.txt");
+    ifstream inputFile("C:\\Users\\jacob\\Downloads\\StudentGrades.txt");
 
-    while (count1 < 50 && inputFile >> names[count1])
+    while (count < 50 && inputFile >> names[count])
     {
-        int count2 = 0;
+        count2 = 0;
 
-        while (count2 < 35 && inputFile >> scores[count1][count2])
+        while (count2 < 35 && inputFile >> scores[count][count2])
         {
             count2++;
         }
-        count1++;
+
+        count++;
     }
 
     inputFile.close();
 
-    return count1 * count2;
+    return count * count2;
 }
 
-int averages()
+double averages()
 {
     int new_count2 = 0;
     int holder = 0;
-    int average = 0;
+    double average = 0;
 
-    while (new_count1 < count1)
+    while (new_count < count)
     {
         while (new_count2 < count2)
         {
-            holder = scores[new_count1][new_count2];
+            holder = scores[new_count][new_count2];
             average += holder;
             new_count2++;
         }
+
         average /= count2;
-        new_count1++;
+        new_count++;
         return average;
     }
 }
@@ -97,10 +99,10 @@ void report()
 
     char letter_grade = 0;
 
-    while (the_final_count < count1)
+    while (the_final_count < count)
     {
         letter_grade = letter();
-        cout << "     " << names[the_final_count] << "     " << averages_array[the_final_count] << "     " << letter_grade << endl;
+        cout << "    " << names[the_final_count] << "          " << averages_array[the_final_count] << "                 " << letter_grade << endl;
         the_final_count++;
     }
 
