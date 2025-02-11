@@ -10,7 +10,6 @@ int count2 = 0;
 int new_count1 = 0;
 double average = 0;
 int the_final_count = 0;
-string line;
 
 int read();
 double averages();
@@ -41,11 +40,16 @@ int read()
 {
     ifstream inputFile("C:\\Users\\jacob\\Downloads\\StudentGrades.txt");
 
+    int amount_scores = 0;
+
+    cout << "How many test scores does each student have? ";
+    cin >> amount_scores;
+
     while (count1 < 50 && inputFile >> names[count1])
     {
         count2 = 0;
 
-        while (count2 < 5 && inputFile >> scores[count1][count2])
+        while (count2 < amount_scores && inputFile >> scores[count1][count2])
         {
             count2++;
         }
@@ -99,7 +103,7 @@ int letter()
 
 void report()
 {
-    cout << "     " << "Name" << "     " << "Average Test Score" << "     " << "Letter Grade" << endl;
+    cout << endl << "     " << "Name" << "     " << "Average Test Score" << "     " << "Letter Grade" << endl;
 
     char letter_grade = 0;
 
