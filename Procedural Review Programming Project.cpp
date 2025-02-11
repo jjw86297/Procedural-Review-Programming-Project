@@ -1,21 +1,23 @@
 //This program simulates Rock, Paper, Scissors.
 #include <iostream>
 #include <random>
+#include <cstdlib>
 using namespace std;
 
-string pick = 0;
+string pick = "";
 int total_score = 0;
 int total_cscore = 0;
 
+int choice();
+int computer();
+int winner();
+void round_winner();
+void tour_winner();
+
 int main()
 {
-    int choice();
-    int computer();
-    int winner();
-    int round_winner();
-    int tour_winner();
-
     round_winner();
+    return 0;
 }
 
 int choice()
@@ -43,10 +45,13 @@ int choice()
             return decision;
         }
         else if (pick == "quit")
+        {
             tour_winner();
+            return 0;
+        }
         else
         {
-            cout << "You did not enter a correct option!" << endl;
+            cout << "You did not enter a correct option!" << endl << endl;
             cout << "Rock, paper, scissors ..." << endl << "Please make a choice in all lowercase or type quit to end: ";
             cin >> pick;
         }
@@ -68,12 +73,10 @@ int winner()
 
     while (count < 3)
     {
-        choice();
         int selection = choice();
-        computer();
         int random = computer();
 
-        string cpick = 0;
+        string cpick = "";
     
         if (random == 1)
             cpick = "rock";
@@ -84,32 +87,37 @@ int winner()
 
         if (selection == 1 && random == 3)
         {
-            cout << "SHOOT!" << endl << "User chose " << pick << "." << endl << "Computer chose " << cpick << "." << endl << "User wins!" << endl;
+            cout << "SHOOT!" << endl << endl << "User chose " << pick << "." << endl << "Computer chose " << cpick << "." << endl << "User wins!" << endl << endl;
             count++;
             score++;
+            cout << score << "-" << cscore << endl << endl;
         }
         else if (selection == 3 && random == 1)
         {
-            cout << "SHOOT!" << endl << "User chose " << pick << "." << endl << "Computer chose " << cpick << "." << endl << "Computer wins!" << endl;
+            cout << "SHOOT!" << endl << endl << "User chose " << pick << "." << endl << "Computer chose " << cpick << "." << endl << "Computer wins!" << endl << endl;
             count++;
             cscore++;
+            cout << score << "-" << cscore << endl << endl;
         }
         else if (selection > random)
         {
-            cout << "SHOOT!" << endl << "User chose " << pick << "." << endl << "Computer chose " << cpick << "." << endl << "User wins!" << endl;
+            cout << "SHOOT!" << endl << endl << "User chose " << pick << "." << endl << "Computer chose " << cpick << "." << endl << "User wins!" << endl << endl;
             count++;
             score++;
+            cout << score << "-" << cscore << endl << endl;
         }
         else if (selection < random)
         {
-            cout << "SHOOT!" << endl << "User chose " << pick << "." << endl << "Computer chose " << cpick << "." << endl << "Computer wins!" << endl;
+            cout << "SHOOT!" << endl << endl << "User chose " << pick << "." << endl << "Computer chose " << cpick << "." << endl << "Computer wins!" << endl << endl;
             count++;
             cscore++;
+            cout << score << "-" << cscore << endl << endl;
         }
         else
         {
-            cout << "SHOOT!" << endl << "User chose " << pick << "." << endl << "Computer chose " << cpick << "." << endl << "It's a draw!" << endl;
+            cout << "SHOOT!" << endl << endl << "User chose " << pick << "." << endl << "Computer chose " << cpick << "." << endl << "It's a draw!" << endl << endl;
             count++;
+            cout << score << "-" << cscore << endl << endl;
         }
     }
     if (score > cscore)
@@ -120,34 +128,50 @@ int winner()
         return 0;
 }
 
-int round_winner()
+void round_winner()
 {
+    int victor;
+
     while (true)
     {
-        winner();
-        if (winner() == 1)
+        victor = winner();
+        if (victor == 1)
         {
-            cout << "User won the round!" << endl;
+            cout << "User won the round!" << endl << endl;
             total_score++;
+            cout << total_score << "-" << total_cscore << endl << endl;
         }
-        else if (winner() == 2)
+        else if (victor == 2)
         {
-            cout << "Computer won the round!" << endl;
+            cout << "Computer won the round!" << endl << endl;
             total_cscore++;
+            cout << total_score << "-" << total_cscore << endl << endl;
         }
         else
-            cout << "The round is a draw!" << endl;
+        {
+            cout << "The round is a draw!" << endl << endl;
+            cout << total_score << "-" << total_cscore << endl << endl;
+        }
     }
 }
 
-int tour_winner()
+void tour_winner()
 {
     if (total_score > total_cscore)
-        cout << "User is the tournament winner!" << endl;
+    {
+        cout << "User is the tournament winner!" << endl << endl;
+        cout << total_score << "-" << total_cscore << endl << endl;
+    }
     else if (total_score < total_cscore)
-        cout << "Computer is the tournament winner!" << endl;
+    {
+        cout << "Computer is the tournament winner!" << endl << endl;
+        cout << total_score << "-" << total_cscore << endl << endl;
+    }
     else
-        cout << "The tournament has ended in a draw ..." << endl;
+    {
+        cout << "The tournament has ended in a draw ..." << endl << endl;
+        cout << total_score << "-" << total_cscore << endl << endl;
+    }
     exit(0);
 }
 
