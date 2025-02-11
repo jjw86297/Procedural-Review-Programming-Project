@@ -1,4 +1,5 @@
 //This program simulates Rock, Paper, Scissors.
+
 #include <iostream>
 #include <random>
 #include <cstdlib>
@@ -160,17 +161,17 @@ void tour_winner()
     if (total_score > total_cscore)
     {
         cout << "User is the tournament winner!" << endl << endl;
-        cout << total_score << "-" << total_cscore << endl << endl;
+        cout << total_score << "-" << total_cscore << endl;
     }
     else if (total_score < total_cscore)
     {
         cout << "Computer is the tournament winner!" << endl << endl;
-        cout << total_score << "-" << total_cscore << endl << endl;
+        cout << total_score << "-" << total_cscore << endl;
     }
     else
     {
         cout << "The tournament has ended in a draw ..." << endl << endl;
-        cout << total_score << "-" << total_cscore << endl << endl;
+        cout << total_score << "-" << total_cscore << endl;
     }
     exit(0);
 }
