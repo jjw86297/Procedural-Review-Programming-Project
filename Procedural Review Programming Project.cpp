@@ -1,14 +1,16 @@
 //This program simulates a grade book.
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 using namespace std;
 
-int count = 0;
+int count1 = 0;
 int count2 = 0;
-int new_count = 0;
+int new_count1 = 0;
 double average = 0;
 int the_final_count = 0;
+string line;
 
 int read();
 double averages();
@@ -25,7 +27,7 @@ int main()
 {
     int average_count = 0;
 
-    while (average_count < count)
+    while (average_count < count1)
     {
         averages_array[average_count] = averages();
         average_count++;
@@ -39,21 +41,21 @@ int read()
 {
     ifstream inputFile("C:\\Users\\jacob\\Downloads\\StudentGrades.txt");
 
-    while (count < 50 && inputFile >> names[count])
+    while (count1 < 50 && inputFile >> names[count1])
     {
         count2 = 0;
 
-        while (count2 < 35 && inputFile >> scores[count][count2])
+        while (count2 < 5 && inputFile >> scores[count1][count2])
         {
             count2++;
         }
 
-        count++;
+        count1++;
     }
 
     inputFile.close();
 
-    return count * count2;
+    return count1 * count2;
 }
 
 double averages()
@@ -62,17 +64,17 @@ double averages()
     int holder = 0;
     double average = 0;
 
-    while (new_count < count)
+    while (new_count1 < count1)
     {
         while (new_count2 < count2)
         {
-            holder = scores[new_count][new_count2];
+            holder = scores[new_count1][new_count2];
             average += holder;
             new_count2++;
         }
 
         average /= count2;
-        new_count++;
+        new_count1++;
         return average;
     }
 }
@@ -101,10 +103,10 @@ void report()
 
     char letter_grade = 0;
 
-    while (the_final_count < count)
+    while (the_final_count < count1)
     {
         letter_grade = letter();
-        cout << "    " << names[the_final_count] << "          " << averages_array[the_final_count] << "                 " << letter_grade << endl;
+        cout << setw(10) << names[the_final_count] << setw(15) << averages_array[the_final_count] << setw(19) << letter_grade << endl;
         the_final_count++;
     }
 
