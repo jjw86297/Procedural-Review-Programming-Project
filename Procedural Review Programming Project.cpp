@@ -4,10 +4,6 @@
 #include <fstream>
 using namespace std;
 
-string names[50];
-int scores[50][35];
-double averages_array[50];
-
 int count = 0;
 int count2 = 0;
 int new_count = 0;
@@ -18,6 +14,10 @@ int read();
 double averages();
 int letter();
 void report();
+
+string names[50];
+int scores[50][35];
+double averages_array[50];
 
 const int num_scores = read();
 
