@@ -42,12 +42,33 @@ int read()
 
     int amount_scores = 0;
 
-    cout << "How many test scores does each student have? ";
-    cin >> amount_scores;
-
     while (count1 < 50 && inputFile >> names[count1])
     {
         count2 = 0;
+        string yes_or_no = " ";
+
+        cout << "Do all students have the same amount of scores? Answer 'yes' or 'no' in all lowercase: ";
+        cin >> yes_or_no;
+
+        if (yes_or_no == "yes")
+        {
+            cout << "How many scores does each student have? ";
+            cin >> amount_scores;
+        }
+        else if (yes_or_no == "no")
+        {
+            cout << "How many test scores does student " << count1 + 1 << " have? ";
+            cin >> amount_scores;
+        }
+        else
+        {
+            cout << "You did not enter a correct response! ";
+            cout << "Do all students have the same amount of scores? Answer 'yes' or 'no' in all lowercase: ";
+            cin >> yes_or_no;
+        }
+
+        cout << "How many test scores does student " << count1 + 2 << " have? ";
+        cin >> amount_scores;
 
         while (count2 < amount_scores && inputFile >> scores[count1][count2])
         {
