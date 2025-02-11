@@ -43,24 +43,24 @@ int read()
     int amount_scores = 0;
     string yes_or_no = " ";
 
-    while (yes_or_no == " ")
-    {
-        cout << "Do all students have the same amount of scores? Answer 'yes' or 'no' in all lowercase: " << endl;
-        cin >> yes_or_no;
+    cout << "Do all students have the same amount of scores? Answer 'yes' or 'no' in all lowercase: ";
+    cin >> yes_or_no;
 
+    while (amount_scores == 0)
+    {
         if (yes_or_no == "yes")
         {
-            cout << "How many scores does each student have? ";
+            cout << endl << "How many scores does each student have? ";
             cin >> amount_scores;
         }
         else if (yes_or_no == "no")
         {
-            cout << "How many test scores does student " << count1 + 1 << " have? ";
-            cin >> amount_scores;
+            amount_scores = -1;
+            cout << endl;
         }
         else
         {
-            cout << "You did not enter a correct response! " << endl;
+            cout << endl << "You did not enter a correct response! " << endl << endl;
             cout << "Do all students have the same amount of scores? Answer 'yes' or 'no' in all lowercase: ";
             cin >> yes_or_no;
         }
@@ -70,13 +70,19 @@ int read()
     {
         count2 = 0;
 
+        if (yes_or_no == "no")
+        {
+            cout << "How many test scores does student " << count1 + 1 << " have? ";
+            cin >> amount_scores;
+        }
+
+        //Below is where it went wrong. Having amount_scores set to a number 
+        //like 50 causes it to read every line in the file, put it in the 
+        //scores array, and leave nothing for the names array. I tried using
+        //methods such as getline, a different kind of loop, etc. but nothing
+        //worked. amount_scores is currently set to a user inputted number.
         while (count2 < amount_scores && inputFile >> scores[count1][count2])
         {
-            if (yes_or_no == "no")
-            {
-                cout << "How many test scores does student " << count1 + 2 << " have? ";
-                cin >> amount_scores;
-            }
             count2++;
         }
 
