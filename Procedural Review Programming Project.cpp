@@ -41,13 +41,11 @@ int read()
     ifstream inputFile("C:\\Users\\jacob\\Downloads\\StudentGrades.txt");
 
     int amount_scores = 0;
+    string yes_or_no = " ";
 
-    while (count1 < 50 && inputFile >> names[count1])
+    while (yes_or_no == " ")
     {
-        count2 = 0;
-        string yes_or_no = " ";
-
-        cout << "Do all students have the same amount of scores? Answer 'yes' or 'no' in all lowercase: ";
+        cout << "Do all students have the same amount of scores? Answer 'yes' or 'no' in all lowercase: " << endl;
         cin >> yes_or_no;
 
         if (yes_or_no == "yes")
@@ -62,16 +60,23 @@ int read()
         }
         else
         {
-            cout << "You did not enter a correct response! ";
+            cout << "You did not enter a correct response! " << endl;
             cout << "Do all students have the same amount of scores? Answer 'yes' or 'no' in all lowercase: ";
             cin >> yes_or_no;
         }
+    }
 
-        cout << "How many test scores does student " << count1 + 2 << " have? ";
-        cin >> amount_scores;
+    while (count1 < 50 && inputFile >> names[count1])
+    {
+        count2 = 0;
 
         while (count2 < amount_scores && inputFile >> scores[count1][count2])
         {
+            if (yes_or_no == "no")
+            {
+                cout << "How many test scores does student " << count1 + 2 << " have? ";
+                cin >> amount_scores;
+            }
             count2++;
         }
 
