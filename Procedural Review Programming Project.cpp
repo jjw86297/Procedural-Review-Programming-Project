@@ -5,127 +5,99 @@
 #include <fstream>
 using namespace std;
 
-int count1 = 0;
-int count2 = 0;
-int new_count1 = 0;
-double average = 0;
-int the_final_count = 0;
+int read(int &, int &);
+double averages(int &, int &, int &);
+int letter(int &);
+void report(int &, int &);
 
-int read();
-double averages();
-int letter();
-void report();
-
-string names[50];
-int scores[50][35];
-double averages_array[50];
-
-const int num_scores = read();
+string names[6];
+int scores[6][5];
+double averages_array[6];
 
 int main()
 {
+    int count1 = 0;
+    int count2 = 0;
+    int new_count1 = 0;
+    int the_final_count = 0;
     int average_count = 0;
+    
+    const int num_scores = read(count1, count2);
 
     while (average_count < count1)
     {
-        averages_array[average_count] = averages();
+        averages_array[average_count] = averages(count1, count2, new_count1);
         average_count++;
     }
 
-    report();
+    report(the_final_count, count1);
     return 0;
 }
 
-int read()
+int read(int &firstcount1, int &firstcount2)
 {
-    ifstream inputFile("C:\\Users\\jacob\\Downloads\\StudentGrades.txt");
+    ifstream inputFile("StudentGrades.txt");
 
-    int amount_scores = 0;
-    string yes_or_no = " ";
-
-    cout << "Do all students have the same amount of scores? Answer 'yes' or 'no' in all lowercase: ";
-    cin >> yes_or_no;
-
-    while (amount_scores == 0)
+    if (inputFile)
     {
-        if (yes_or_no == "yes")
-        {
-            cout << endl << "How many scores does each student have? ";
-            cin >> amount_scores;
-        }
-        else if (yes_or_no == "no")
-        {
-            amount_scores = -1;
-            cout << endl;
-        }
-        else
-        {
-            cout << endl << "You did not enter a correct response! " << endl << endl;
-            cout << "Do all students have the same amount of scores? Answer 'yes' or 'no' in all lowercase: ";
-            cin >> yes_or_no;
-        }
+        cout << "Opening file..." << endl;
+    }
+    else
+    {
+        cout << "Error opening the file." << endl;
+
+        exit(0);
     }
 
-    while (count1 < 50 && inputFile >> names[count1])
+    while (inputFile >> names[firstcount1] && firstcount1 < 6)
     {
-        count2 = 0;
+        firstcount2 = 0;
 
-        if (yes_or_no == "no")
+        while (inputFile >> scores[firstcount1][firstcount2] && firstcount2 < 5)
         {
-            cout << "How many test scores does student " << count1 + 1 << " have? ";
-            cin >> amount_scores;
+            firstcount2++;
         }
 
-        //Below is where it went wrong. Having amount_scores set to a number 
-        //like 50 causes it to read every line in the file, put it in the 
-        //scores array, and leave nothing for the names array. I tried using
-        //methods such as getline, a different kind of loop, etc. but nothing
-        //worked. amount_scores is currently set to a user inputted number.
-        while (count2 < amount_scores && inputFile >> scores[count1][count2])
-        {
-            count2++;
-        }
-
-        count1++;
+        firstcount1++;
     }
 
     inputFile.close();
 
-    return count1 * count2;
+    return firstcount1 * firstcount2;
 }
 
-double averages()
+double averages(int &secondcount1, int &secondcount2, int &firstnew_count1)
 {
     int new_count2 = 0;
     int holder = 0;
     double average = 0;
 
-    while (new_count1 < count1)
+    while (firstnew_count1 < secondcount1)
     {
-        while (new_count2 < count2)
+        while (new_count2 < secondcount2)
         {
-            holder = scores[new_count1][new_count2];
+            holder = scores[firstnew_count1][new_count2];
             average += holder;
             new_count2++;
         }
 
-        average /= count2;
-        new_count1++;
+        average /= secondcount2;
+        firstnew_count1++;
         return average;
     }
 }
 
-int letter()
+int letter(int &firstthe_final_count)
 {
     char grade = 0;
 
-    if (averages_array[the_final_count] < 60)
+    if (averages_array[firstthe_final_count] < 60)
         grade = 'F';
-    else if (averages_array[the_final_count] < 70)
+    else if (averages_array[firstthe_final_count] < 70)
         grade = 'D';
-    else if (averages_array[the_final_count] < 80)
+    else if (averages_array[firstthe_final_count] < 80)
         grade = 'C';
-    else if (averages_array[the_final_count] < 90)
+    else if (averages_array[firstthe_final_count] < 90)
         grade = 'B';
     else
         grade = 'A';
@@ -133,17 +105,17 @@ int letter()
     return grade;
 }
 
-void report()
+void report(int &secondthe_final_count, int &thirdcount1)
 {
     cout << endl << "     " << "Name" << "     " << "Average Test Score" << "     " << "Letter Grade" << endl;
 
     char letter_grade = 0;
 
-    while (the_final_count < count1)
+    while (secondthe_final_count < thirdcount1)
     {
-        letter_grade = letter();
-        cout << setw(10) << names[the_final_count] << setw(15) << averages_array[the_final_count] << setw(19) << letter_grade << endl;
-        the_final_count++;
+        letter_grade = letter(secondthe_final_count);
+        cout << setw(10) << names[secondthe_final_count] << setw(15) << averages_array[secondthe_final_count] << setw(19) << letter_grade << endl;
+        secondthe_final_count++;
     }
 
     exit(0);
